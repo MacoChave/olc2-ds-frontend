@@ -1,0 +1,44 @@
+:root {
+	--dark-primary-color: #254441;
+	--primary-color: #1976d2;
+	--accent-color: #9c27b0;
+	--background: #fdfffc;
+	--text-color: #1e1e1e;
+	--input-background: #fff;
+	--input-shadow: 0 0 40px 15px rgba(0, 0, 0, 0.2);
+	--border-color: #aaaaaa;
+	--border-radius: 20px;
+	--blue: #3f84e5;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+.btn {
+	cursor: pointer;
+	border: none;
+	padding: 1em 1.5em;
+	border-radius: var(--border-radius);
+	transition: filter 0.3 ease-in-out;
+}
+
+.btn:hover,
+.btn:active {
+	filter: brightness(0.8);
+}
+
+.btn__primary {
+	background: var(--primary-color);
+	color: var(--input-background);
+}
