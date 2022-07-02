@@ -18,6 +18,7 @@ import { paramsInitialState, paramsReducer } from '../reducers/paramsReducer';
 import { Analize } from '../components/Analize';
 import { PARAMS_TYPES } from '../actions/paramsAction';
 import { sendAnalize } from '../services/AnalizarService';
+import { Results } from '../components/Results';
 
 const steps = ['Datos', 'Procedimiento', 'Parametrizar', 'Analizar'];
 
@@ -32,6 +33,9 @@ export const Home = () => {
 		paramsReducer,
 		paramsInitialState
 	);
+	const [func, setFunc] = useState('');
+	const [pred, setPred] = useState('');
+	const [imageB64, setImageB64] = useState('');
 
 	const stepContent = [
 		<FileInput data={fileData} dispatch={fileDispatch} />,
@@ -45,6 +49,7 @@ export const Home = () => {
 			dispatch={paramsDispatch}
 		/>,
 		<Analize config={configReducer} params={paramsReducer} />,
+		<Results func={func} pred={pred} imageB64={imageB64} />,
 	];
 
 	const handleNext = () => {
@@ -60,7 +65,12 @@ export const Home = () => {
 			};
 			sendAnalize(headers, data)
 				.then((response) => response.json())
-				.then((data) => console.log(data))
+				.then((data) => {
+					console.log(data);
+					setFunc(data.func);
+					setPred(data.pred);
+					setImageB64(data.imageB64);
+				})
 				.catch((error) => console.error(error));
 		}
 		setActiveStep((curStep) => curStep + 1);
@@ -79,10 +89,7 @@ export const Home = () => {
 		<Box sx={{ width: '70%', marginX: 'auto', marginY: 15 }}>
 			<Stepper activeStep={activeStep}>
 				{steps.map((step, index) => {
-					const stepProps = {
-						data: fileData,
-						dispatch: fileDispatch,
-					};
+					const stepProps = {};
 					const labelProps = {};
 					return (
 						<Step key={index} {...stepProps}>
@@ -104,11 +111,11 @@ export const Home = () => {
 			{activeStep === steps.length ? (
 				<>
 					<Typography sx={{ mt: 2, mb: 1 }}>
-						Pasos completados
+						Análisis finalizado
 					</Typography>
 					<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
 						<Box sx={{ flex: '1 1 auto' }} />
-						<Button onClick={handleReset}>Reiniciar</Button>
+						<Button onClick={handleReset}>Nuevo análisis</Button>
 					</Box>
 				</>
 			) : (

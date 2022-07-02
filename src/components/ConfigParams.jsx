@@ -46,8 +46,8 @@ export const ConfigParams = (props) => {
 		<Box sx={{ display: 'flex', flexDirection: 'row', gap: 4 }}>
 			<Card>
 				<CardHeader title='Configurar parámetros' />
-				<CardContent>
-					<FormControl fullWidth>
+				<CardContent sx={{ gap: 4 }}>
+					<FormControl fullWidth sx={{ mb: 4 }}>
 						<InputLabel id={`paramsLabelY-${id}`}>
 							(y) Target values
 						</InputLabel>
@@ -88,7 +88,7 @@ export const ConfigParams = (props) => {
 				<CardContent>
 					<TextField
 						id={`paramsTextFilter-${id}`}
-						label='¿Cuánto tiempo?'
+						label='Prediccion (Respecto a x)'
 						variant='standard'
 						onChange={handleFilter}
 					/>
