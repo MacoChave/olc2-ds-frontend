@@ -7,7 +7,7 @@
 export const sendAnalize = async (headers, data) => {
     console.log(data)
     return fetch(
-        'http://localhost:5000/analize',
+        'http://34.168.78.33:8080/analize',
         {
             headers: headers,
             body: JSON.stringify(data),

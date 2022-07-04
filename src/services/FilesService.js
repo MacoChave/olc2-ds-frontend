@@ -7,7 +7,7 @@
  */
 export const uploadFile = async (params, headers, data) => {
     data = data.split(',')[1];
-    return fetch(`http://localhost:5000/upload?${params.toString()}`, {
+    return fetch(`http://34.168.78.33:8080/upload?${params.toString()}`, {
         headers: headers,
         body: data,
         method: 'post'
@@ -20,7 +20,7 @@ export const uploadFile = async (params, headers, data) => {
  * @param {Headers} headers 
  */
 export const getHeadersFile = async (params) => {
-    return fetch(`http://localhost:5000/headers?${params.toString()}`, {
+    return fetch(`http://34.168.78.33:8080/headers?${params.toString()}`, {
         method: 'get'
     })
 }
