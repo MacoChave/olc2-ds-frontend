@@ -33,7 +33,7 @@ export const ConfigParams = (props) => {
 		</>
 	) : (
 		<Alert variant='outlined' severity='warning'>
-			No se encontró archivo de datos
+			No se encontró archivo de datos 🙃, regrese para cargar datos 🙂
 		</Alert>
 	);
 };

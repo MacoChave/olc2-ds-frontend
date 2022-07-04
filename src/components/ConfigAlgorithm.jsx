@@ -1,4 +1,3 @@
-import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 import {
 	Box,
 	Card,
@@ -10,8 +9,10 @@ import {
 	MenuItem,
 	OutlinedInput,
 	Select,
+	Tooltip,
 	useTheme,
 } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import { useId, useState } from 'react';
 import { CONFIG_TYPES } from '../actions/configAction';
 import { options } from '../consts/analysisOptions';
@@ -69,63 +70,89 @@ export const ConfigAlgorithm = (props) => {
 			<CardHeader title='¿Qué hay que hacer?' />
 			<CardContent>
 				{/* SELECCIONAR ALGORITMO */}
-				<FormControl fullWidth sx={{ mb: 4 }}>
-					<InputLabel id={`labelAlgoritm-${id}`}>
-						Escoger algorimo
-					</InputLabel>
-					<Select
-						labelId={`labelAlgoritm-${id}`}
-						id={`selectAlgoritm-${id}`}
-						value={data.idxAlgorithm}
-						onChange={handleAlgorithmChange}>
-						{options.map((option, index) => (
-							<MenuItem key={index} value={index}>
-								{option.algorithm}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+				<Box
+					sx={{
+						display: 'flex',
+						gap: 1,
+						placeContent: 'center',
+						placeItems: 'center',
+					}}>
+					<FormControl fullWidth sx={{ mb: 4 }}>
+						<InputLabel id={`labelAlgoritm-${id}`}>
+							Escoger algorimo
+						</InputLabel>
+						<Select
+							labelId={`labelAlgoritm-${id}`}
+							id={`selectAlgoritm-${id}`}
+							value={data.idxAlgorithm}
+							onChange={handleAlgorithmChange}>
+							{options.map((option, index) => (
+								<MenuItem key={index} value={index}>
+									{option.algorithm}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+					<Tooltip title='Seleccionar el algoritmo que desea que implemente la aplicación 😊'>
+						<InfoIcon color='action' />
+					</Tooltip>
+				</Box>
 				{/* SELECCIONAR OPERACION */}
-				<FormControl fullWidth sx={{ mb: 4 }}>
-					<InputLabel id={`labelOperation-${id}`}>
-						Escoger operaciones
-					</InputLabel>
-					<Select
-						labelId={`labelOperation-${id}`}
-						id={`selectOperation-${id}`}
-						multiple
-						value={data.option}
-						onChange={handleOperationChange}
-						input={
-							<OutlinedInput
-								id={`inputOperation-${id}`}
-								label='Operacion'
-							/>
-						}
-						renderValue={(selected) => (
-							<Box
-								sx={{
-									display: 'flex',
-									flexWrap: 'wrap',
-									maxWidth: '300px',
-									gap: 0.5,
-								}}>
-								{selected.map((value, index) => (
-									<Chip key={index} label={value} />
-								))}
-							</Box>
-						)}
-						MenuProps={MenuProps}>
-						{arrOptions.map((option, index) => (
-							<MenuItem
-								key={index}
-								value={option}
-								style={getStyles(option, data.option, theme)}>
-								{option}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
+				<Box
+					sx={{
+						display: 'flex',
+						gap: 1,
+						placeContent: 'center',
+						placeItems: 'center',
+					}}>
+					<FormControl fullWidth sx={{ mb: 4 }}>
+						<InputLabel id={`labelOperation-${id}`}>
+							Escoger operaciones
+						</InputLabel>
+						<Select
+							labelId={`labelOperation-${id}`}
+							id={`selectOperation-${id}`}
+							multiple
+							value={data.option}
+							onChange={handleOperationChange}
+							input={
+								<OutlinedInput
+									id={`inputOperation-${id}`}
+									label='Operacion'
+								/>
+							}
+							renderValue={(selected) => (
+								<Box
+									sx={{
+										display: 'flex',
+										flexWrap: 'wrap',
+										maxWidth: '300px',
+										gap: 0.5,
+									}}>
+									{selected.map((value, index) => (
+										<Chip key={index} label={value} />
+									))}
+								</Box>
+							)}
+							MenuProps={MenuProps}>
+							{arrOptions.map((option, index) => (
+								<MenuItem
+									key={index}
+									value={option}
+									style={getStyles(
+										option,
+										data.option,
+										theme
+									)}>
+									{option}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+					<Tooltip title='Seleccione lo que desee que se verá en los resultados del análisis 😊'>
+						<InfoIcon color='action' />
+					</Tooltip>
+				</Box>
 			</CardContent>
 		</Card>
 	);

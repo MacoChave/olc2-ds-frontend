@@ -8,13 +8,13 @@ import {
 	Divider,
 	FormControl,
 	InputLabel,
-	ListItemButton,
 	MenuItem,
 	Select,
 	TextField,
+	Tooltip,
 	Typography,
-	useTheme,
 } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import { useId, useState } from 'react';
 import { PARAMS_TYPES } from '../actions/paramsAction';
 
@@ -46,13 +46,13 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 	};
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'row', gap: 4 }}>
-			<Card>
+		<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+			<Card sx={{ flex: '200px' }}>
 				<CardHeader title='Columnas del archivo' />
 				<CardContent>
-					<Box sx={{ gap: 4 }}>
+					<Box sx={{ maxHeight: '50vh', overflowY: 'scroll' }}>
 						{headers.map((header, index) => (
-							<>
+							<Box id={`item-${index}`}>
 								<Typography
 									variant='body1'
 									key={`head-${index}`}>
@@ -62,31 +62,44 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 									key={`divide-${index}`}
 									sx={{ marginY: 1 }}
 								/>
-							</>
+							</Box>
 						))}
 					</Box>
 				</CardContent>
 			</Card>
-			<Card>
+			<Card sx={{ flex: '300px' }}>
 				<CardHeader title='Configurar valores' />
 				<CardContent>
-					<FormControl fullWidth sx={{ mb: 2 }}>
-						<InputLabel id={`gaussLabelX-${id}`}>
-							(y) Target values
-						</InputLabel>
-						<Select
-							labelId={`gaussLabelX-${id}`}
-							id={`gaussSelectX-${id}`}
-							value={data.dependiente}
-							label='Target values'
-							onChange={handleTargetValueChange}>
-							{headers.map((header, index) => (
-								<MenuItem key={`item-${index}`} value={header}>
-									{header}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
+					<Box
+						sx={{
+							display: 'flex',
+							gap: 1,
+							placeContent: 'center',
+							placeItems: 'center',
+						}}>
+						<FormControl fullWidth sx={{ mb: 2 }}>
+							<InputLabel id={`gaussLabelX-${id}`}>
+								(y) Target values
+							</InputLabel>
+							<Select
+								labelId={`gaussLabelX-${id}`}
+								id={`gaussSelectX-${id}`}
+								value={data.dependiente}
+								label='Target values'
+								onChange={handleTargetValueChange}>
+								{headers.map((header, index) => (
+									<MenuItem
+										key={`item-${index}`}
+										value={header}>
+										{header}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<Tooltip title='Es la variable que el algoritmo utilizará para predecir un resultado 👌'>
+							<InfoIcon color='action' />
+						</Tooltip>
+					</Box>
 					<Box
 						sx={{
 							display: 'flex',
@@ -96,20 +109,27 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 						<Alert variant='outlined' severity='info'>{`Agregar ${
 							headers.length - 1
 						} valores separados ','`}</Alert>
-						<form
-							style={{
-								flex: 'flex',
-								placeContent: 'center',
-								placeItems: 'center',
-							}}
-							onSubmit={handleFilterSubmit}>
-							<TextField
-								id={`gausFilter-${id}`}
-								label='Predicción'
-								variant='standard'
-								onChange={handleFilterChange}
-							/>
-							<Button type='submit' variant='outlined'>
+						<form onSubmit={handleFilterSubmit}>
+							<Box
+								sx={{
+									display: 'flex',
+									gap: 1,
+									mb: 2,
+									placeContent: 'center',
+									placeItems: 'center',
+								}}>
+								<TextField
+									id={`gausFilter-${id}`}
+									label='Predicción'
+									fullWidth
+									variant='standard'
+									onChange={handleFilterChange}
+								/>
+								<Tooltip title='Valor a predecir en términos de la variable independiente. Agregarlo en forma de lista de números separada por coma (,) 👌'>
+									<InfoIcon color='action' />
+								</Tooltip>
+							</Box>
+							<Button type='submit' fullWidth variant='outlined'>
 								Guardar
 							</Button>
 						</form>
