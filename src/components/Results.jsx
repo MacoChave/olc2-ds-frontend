@@ -5,20 +5,24 @@ export const Results = ({ func, pred, imageB64 }) => {
 		<Card sx={{ minWidth: 275 }}>
 			<CardHeader title='Resultados' />
 			<CardContent>
-				<div>
-					<Typography>Función de tendencia: </Typography>
-					<pre>{func}</pre>
-				</div>
-				<div
-					style={{
-						display: 'flex',
-						placeContent: 'flex-start',
-						placeItems: 'center',
-						gap: 8,
-					}}>
-					<Typography>Predicción: </Typography>
-					<pre>{pred}</pre>
-				</div>
+				{func && (
+					<div>
+						<Typography>Función de tendencia: </Typography>
+						<pre>{func}</pre>
+					</div>
+				)}
+				{pred && (
+					<div
+						style={{
+							display: 'flex',
+							placeContent: 'flex-start',
+							placeItems: 'center',
+							gap: 8,
+						}}>
+						<Typography>Predicción: </Typography>
+						<pre>{pred}</pre>
+					</div>
+				)}
 				<div>
 					{imageB64 && (
 						<div
@@ -31,9 +35,7 @@ export const Results = ({ func, pred, imageB64 }) => {
 									style={{
 										background: '#1594AD',
 										color: '#1594AD',
-									}}
-									Labels
-									graph>
+									}}>
 									-----
 								</span>{' '}
 								Plot
@@ -43,9 +45,7 @@ export const Results = ({ func, pred, imageB64 }) => {
 									style={{
 										background: '#AD5203',
 										color: '#AD5203',
-									}}
-									Labels
-									graph>
+									}}>
 									-----
 								</span>{' '}
 								Tendencia
