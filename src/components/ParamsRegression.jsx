@@ -43,13 +43,13 @@ export const ParamsRegression = ({ data, dispatch, headers }) => {
 				<CardContent sx={{ gap: 4 }}>
 					<FormControl fullWidth sx={{ mb: 4 }}>
 						<InputLabel id={`paramsLabelY-${id}`}>
-							(y) Target values
+							Variable dependiente (y)
 						</InputLabel>
 						<Select
 							labelId={`paramsLabelY-${id}`}
 							id={`paramsSelectY-${id}`}
 							value={data.dependiente}
-							label='Target values'
+							label='Training values'
 							onChange={handleDependiente}>
 							{headers.map((header, index) => (
 								<MenuItem key={index} value={header}>
@@ -60,13 +60,13 @@ export const ParamsRegression = ({ data, dispatch, headers }) => {
 					</FormControl>
 					<FormControl fullWidth>
 						<InputLabel id={`paramsLabelX-${id}`}>
-							(x) Training data
+							Variable independiente (x)
 						</InputLabel>
 						<Select
 							labelId={`paramsLabelX-${id}`}
 							id={`paramsSelectX-${id}`}
 							value={data.independiente}
-							label='Training data'
+							label='Target values'
 							onChange={handleIndependiente}>
 							{headers.map((header, index) => (
 								<MenuItem key={index} value={header}>
@@ -82,7 +82,7 @@ export const ParamsRegression = ({ data, dispatch, headers }) => {
 				<CardContent>
 					<TextField
 						id={`paramsTextFilter-${id}`}
-						label='Prediccion (Respecto a x)'
+						label='Valor a predecir'
 						variant='standard'
 						onChange={handleFilter}
 					/>
