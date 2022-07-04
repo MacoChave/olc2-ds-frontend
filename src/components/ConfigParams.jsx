@@ -8,43 +8,76 @@ import {
 	MenuItem,
 	Select,
 	TextField,
+	Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useId, useState } from 'react';
 import { PARAMS_TYPES } from '../actions/paramsAction';
 import { options } from '../consts/analysisOptions';
+import { ParamsGaussian } from './ParamsGaussian';
+import { ParamsRegression } from './ParamsRegression';
 
 export const ConfigParams = (props) => {
 	const id = useId();
-	const { headers, algorithm, option, file, data, dispatch } = props;
+	const { headers, algorithm, file, data, dispatch } = props;
 
-	const fieldList = options[algorithm].fields;
-	const filterList = options[algorithm].filter;
+	// const handleDependiente = (e) => {
+	// 	e.stopPropagation();
+	// 	dispatch({
+	// 		type: PARAMS_TYPES.SET_DEPENDIENTE,
+	// 		dependiente: e.target.value,
+	// 	});
+	// };
 
-	const handleDependiente = (e) => {
-		e.stopPropagation();
-		dispatch({
-			type: PARAMS_TYPES.SET_DEPENDIENTE,
-			dependiente: e.target.value,
-		});
-	};
+	// const handleIndependiente = (e) => {
+	// 	e.stopPropagation();
+	// 	dispatch({
+	// 		type: PARAMS_TYPES.SET_INDEPENDIENTE,
+	// 		independiente: e.target.value,
+	// 	});
+	// };
 
-	const handleIndependiente = (e) => {
-		e.stopPropagation();
-		dispatch({
-			type: PARAMS_TYPES.SET_INDEPENDIENTE,
-			independiente: e.target.value,
-		});
-	};
+	// const handleFilter = (e) => {
+	// 	e.stopPropagation();
+	// 	dispatch({ type: PARAMS_TYPES.SET_TIME, time: e.target.value });
+	// };
 
-	const handleFilter = (e) => {
-		e.stopPropagation();
-		dispatch({ type: PARAMS_TYPES.SET_TIME, time: e.target.value });
+	const handleAddColumn = (e) => {};
+
+	const handleAddParams = (e) => {};
+
+	const CardGaussian = () => {
+		return (
+			<>
+				<Card>
+					<CardHeader title={'Clasificador gausiano'} />
+					<CardContent>
+						{headers.map((value, index) => {
+							<div key={index}>{value}</div>;
+						})}
+					</CardContent>
+				</Card>
+			</>
+		);
 	};
 
 	return file ? (
-		<Box sx={{ display: 'flex', flexDirection: 'row', gap: 4 }}>
-			<Card>
+		<>
+			{(algorithm === 0 || algorithm === 1) && (
+				<ParamsRegression
+					data={data}
+					dispatch={dispatch}
+					headers={headers}
+				/>
+			)}
+			{algorithm === 2 && (
+				<ParamsGaussian
+					data={data}
+					dispatch={dispatch}
+					headers={headers}
+				/>
+			)}
+			{/* <Card>
 				<CardHeader title='Configurar parámetros' />
 				<CardContent sx={{ gap: 4 }}>
 					<FormControl fullWidth sx={{ mb: 4 }}>
@@ -93,9 +126,11 @@ export const ConfigParams = (props) => {
 						onChange={handleFilter}
 					/>
 				</CardContent>
-			</Card>
-		</Box>
+			</Card> */}
+		</>
 	) : (
-		<Alert severity='warning'>No se encontró archivo de datos</Alert>
+		<Alert variant='outlined' severity='warning'>
+			No se encontró archivo de datos
+		</Alert>
 	);
 };

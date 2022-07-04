@@ -21,19 +21,19 @@ export const options = [
     },
     {
         algorithm: 'Clasificador gaussiano',
-        operations: ['Graficar puntos'],
+        operations: ['Predicción'],
         fields: [],
         filter: []
     },
     {
         algorithm: 'Clasificador de árboles de decisión',
-        operations: ['Graficar puntos'],
+        operations: ['Grafica de árbol'],
         fields: [],
         filter: []
     },
     {
         algorithm: 'Redes neuronales',
-        operations: ['Graficar puntos'],
+        operations: ['Predicción'],
         fields: [],
         filter: []
     },

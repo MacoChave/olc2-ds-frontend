@@ -3,7 +3,9 @@ import { PARAMS_TYPES } from "../actions/paramsAction"
 export const paramsInitialState = {
     dependiente: '',
     independiente: '',
-    time: ''
+    time: '',
+    columns: [],
+    predicts: []
 }
 
 export const paramsReducer = (state, action) => {
@@ -12,6 +14,10 @@ export const paramsReducer = (state, action) => {
             return { ...state, dependiente: action.dependiente }
         case PARAMS_TYPES.SET_INDEPENDIENTE:
             return { ...state, independiente: action.independiente }
+        case PARAMS_TYPES.ADD_COLUMNS:
+            return { ...state, columns: action.columns }
+        case PARAMS_TYPES.ADD_PREDICTS:
+            return { ...state, predicts: [...state.predicts, action.predicts] }
         case PARAMS_TYPES.SET_TIME:
             return { ...state, time: action.time }
         case PARAMS_TYPES.CLEAR_PARAMS:

@@ -43,7 +43,6 @@ export const Home = () => {
 		<ConfigParams
 			headers={fileData.headers}
 			algorithm={configData.idxAlgorithm}
-			option={configData.idxOption}
 			file={fileData.file}
 			data={paramsData}
 			dispatch={paramsDispatch}
