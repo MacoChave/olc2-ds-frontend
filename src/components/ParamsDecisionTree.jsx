@@ -1,20 +1,26 @@
 import {
+	Alert,
 	Box,
+	Button,
 	Card,
 	CardContent,
 	CardHeader,
+	Divider,
 	FormControl,
 	InputLabel,
 	MenuItem,
 	Select,
+	TextField,
 	Tooltip,
+	Typography,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import { PARAMS_TYPES } from '../actions/paramsAction';
 
 export const ParamDecisionTree = ({ data, dispatch, headers }) => {
 	const id = useId();
+	const [filter, setFilter] = useState('');
 
 	const handleDependiente = (e) => {
 		e.preventDefault();
@@ -24,40 +30,106 @@ export const ParamDecisionTree = ({ data, dispatch, headers }) => {
 			dependiente: e.target.value,
 		});
 	};
+	const handleFilterChange = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setFilter(e.target.value);
+	};
+	const handleFilterSubmit = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		let value = filter.split(',');
+		dispatch({ type: PARAMS_TYPES.SET_TIME, time: value });
+	};
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', gap: 4 }}>
-			<Card>
-				<CardHeader title='Configurar parámetros para clasificador de árbol de decisión' />
+			<Card sx={{ flex: '200px' }}>
+				<CardHeader title='Columnas del archivo' />
+				<CardContent>
+					<Box sx={{ maxHeight: '50vh', overflowY: 'scroll' }}>
+						{headers.map((header, index) => (
+							<Box id={`item-${index}`}>
+								<Typography
+									variant='body1'
+									key={`head-${index}`}>
+									{header}
+								</Typography>
+								<Divider
+									key={`divide-${index}`}
+									sx={{ marginY: 1 }}
+								/>
+							</Box>
+						))}
+					</Box>
+				</CardContent>
+			</Card>
+			<Card sx={{ flex: '300px' }}>
+				<CardHeader title='Configurar valores' />
 				<CardContent>
 					<Box
 						sx={{
 							display: 'flex',
 							gap: 1,
-							mb: 2,
 							placeContent: 'center',
 							placeItems: 'center',
 						}}>
-						<FormControl fullWidth sx={{ mb: 4 }}>
-							<InputLabel id={`paramLabel-${id}`}>
+						<FormControl fullWidth sx={{ mb: 2 }}>
+							<InputLabel id={`gaussLabelX-${id}`}>
 								(y) Target values
 							</InputLabel>
 							<Select
-								labelId={`paramLabel-${id}`}
-								id={`paramSelect-${id}`}
+								labelId={`gaussLabelX-${id}`}
+								id={`gaussSelectX-${id}`}
 								value={data.dependiente}
 								label='Target values'
 								onChange={handleDependiente}>
 								{headers.map((header, index) => (
-									<MenuItem key={index} value={header}>
+									<MenuItem
+										key={`item-${index}`}
+										value={header}>
 										{header}
 									</MenuItem>
 								))}
 							</Select>
 						</FormControl>
-						<Tooltip title='Es la variable con la que el algoritmo se basará para realizar la clasificación del árbol de decisión 👌'>
+						<Tooltip title='Es la variable que el algoritmo utilizará para predecir un resultado 👌'>
 							<InfoIcon color='action' />
 						</Tooltip>
+					</Box>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							gap: 2,
+						}}>
+						<Alert variant='outlined' severity='info'>{`Agregar ${
+							headers.length - 1
+						} valores separados por ','`}</Alert>
+						<form onSubmit={handleFilterSubmit}>
+							<Box
+								sx={{
+									display: 'flex',
+									gap: 1,
+									mb: 2,
+									placeContent: 'center',
+									placeItems: 'center',
+								}}>
+								<TextField
+									id={`gausFilter-${id}`}
+									label='Predicción'
+									fullWidth
+									variant='standard'
+									onChange={handleFilterChange}
+								/>
+								<Tooltip title='Valor a predecir en términos del valor objetivo. Agregarlo en forma de lista de números separada por coma (,) 👌'>
+									<InfoIcon color='action' />
+								</Tooltip>
+							</Box>
+							<Button type='submit' fullWidth variant='outlined'>
+								Guardar
+							</Button>
+						</form>
 					</Box>
 				</CardContent>
 			</Card>

@@ -22,7 +22,7 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 	const id = useId();
 	const [filter, setFilter] = useState('');
 
-	const handleTargetValueChange = (e) => {
+	const handleDependienteChange = (e) => {
 		e.stopPropagation();
 		dispatch({
 			type: PARAMS_TYPES.SET_DEPENDIENTE,
@@ -34,14 +34,12 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 		e.stopPropagation();
 		e.preventDefault();
 		setFilter(e.target.value);
-		console.log(filter);
 	};
 
 	const handleFilterSubmit = (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		let value = filter.split(',');
-		console.log({ filter, value });
 		dispatch({ type: PARAMS_TYPES.SET_TIME, time: value });
 	};
 
@@ -86,7 +84,7 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 								id={`gaussSelectX-${id}`}
 								value={data.dependiente}
 								label='Target values'
-								onChange={handleTargetValueChange}>
+								onChange={handleDependienteChange}>
 								{headers.map((header, index) => (
 									<MenuItem
 										key={`item-${index}`}
@@ -108,7 +106,7 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 						}}>
 						<Alert variant='outlined' severity='info'>{`Agregar ${
 							headers.length - 1
-						} valores separados ','`}</Alert>
+						} valores separados por ','`}</Alert>
 						<form onSubmit={handleFilterSubmit}>
 							<Box
 								sx={{
@@ -125,7 +123,7 @@ export const ParamsGaussian = ({ data, dispatch, headers }) => {
 									variant='standard'
 									onChange={handleFilterChange}
 								/>
-								<Tooltip title='Valor a predecir en términos de la variable independiente. Agregarlo en forma de lista de números separada por coma (,) 👌'>
+								<Tooltip title='Valor a predecir en términos del valor objetivo. Agregarlo en forma de lista de números separada por coma (,) 👌'>
 									<InfoIcon color='action' />
 								</Tooltip>
 							</Box>

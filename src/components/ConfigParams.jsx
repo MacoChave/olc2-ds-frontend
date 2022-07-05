@@ -1,5 +1,5 @@
-import { Alert, Card, CardContent, CardHeader } from '@mui/material';
-import { useId } from 'react';
+import { Alert } from '@mui/material';
+import { ParamNeuralNetwork } from './ParamNeuralNetwork';
 import { ParamDecisionTree } from './ParamsDecisionTree';
 import { ParamsGaussian } from './ParamsGaussian';
 import { ParamsRegression } from './ParamsRegression';
@@ -25,6 +25,13 @@ export const ConfigParams = (props) => {
 			)}
 			{algorithm === 3 && (
 				<ParamDecisionTree
+					data={data}
+					dispatch={dispatch}
+					headers={headers}
+				/>
+			)}
+			{algorithm === 4 && (
+				<ParamNeuralNetwork
 					data={data}
 					dispatch={dispatch}
 					headers={headers}
