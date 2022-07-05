@@ -36,6 +36,7 @@ export const Home = () => {
 	const [func, setFunc] = useState('');
 	const [pred, setPred] = useState('');
 	const [imageB64, setImageB64] = useState('');
+	const [error, setError] = useState(0);
 
 	const stepContent = [
 		<FileInput data={fileData} dispatch={fileDispatch} />,
@@ -48,7 +49,7 @@ export const Home = () => {
 			dispatch={paramsDispatch}
 		/>,
 		<Analize config={configReducer} params={paramsReducer} />,
-		<Results func={func} pred={pred} imageB64={imageB64} />,
+		<Results func={func} pred={pred} imageB64={imageB64} error={error} />,
 	];
 
 	const handleNext = () => {
@@ -69,6 +70,7 @@ export const Home = () => {
 					setFunc(data.func);
 					setPred(data.pred);
 					setImageB64(data.imageB64);
+					setError(data.error);
 				})
 				.catch((error) => console.error(error));
 		}

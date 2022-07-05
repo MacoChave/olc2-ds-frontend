@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 
-export const Results = ({ func, pred, imageB64 }) => {
+export const Results = ({ func, pred, imageB64, error }) => {
 	return (
 		<Card sx={{ minWidth: 275 }}>
 			<CardHeader title='Resultados' />
@@ -55,12 +55,14 @@ export const Results = ({ func, pred, imageB64 }) => {
 					<img
 						style={{ maxWidth: '60vw' }}
 						src={
-							imageB64 === ''
-								? 'https://i.pinimg.com/474x/5a/61/30/5a613089c64fa51c2c17877c030d4eed.jpg'
-								: `data:image/jpeg;base64,${imageB64.slice(
+							imageB64 !== ''
+								? `data:image/jpeg;base64,${imageB64.slice(
 										2,
 										-1
 								  )}`
+								: error !== ''
+								? 'https://definicion.de/wp-content/uploads/2009/02/error.png'
+								: 'https://i.pinimg.com/474x/5a/61/30/5a613089c64fa51c2c17877c030d4eed.jpg'
 						}
 						alt='Graph Result'
 					/>
