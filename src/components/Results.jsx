@@ -55,13 +55,13 @@ export const Results = ({ func, pred, imageB64, error }) => {
 					<img
 						style={{ maxWidth: '60vw' }}
 						src={
-							imageB64 !== ''
+							error !== ''
+								? 'https://definicion.de/wp-content/uploads/2009/02/error.png'
+								: imageB64 !== ''
 								? `data:image/jpeg;base64,${imageB64.slice(
 										2,
 										-1
 								  )}`
-								: error !== ''
-								? 'https://definicion.de/wp-content/uploads/2009/02/error.png'
 								: 'https://i.pinimg.com/474x/5a/61/30/5a613089c64fa51c2c17877c030d4eed.jpg'
 						}
 						alt='Graph Result'
